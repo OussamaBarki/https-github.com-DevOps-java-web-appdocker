@@ -31,8 +31,5 @@ node{
           sh' docker run  -d -p 8080:8080 --name java-web-app ouusssamaaa/java-web-app'
        
        }
-       
-    }
-     
      
 }
