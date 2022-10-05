@@ -19,20 +19,17 @@ node{
     stage('Push Docker Image'){
     
         withCredentials([usernamePassword(credentialsId: 'Docker_Hub_Pwd', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-             sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+             sh ''' docker login -u ${USERNAME} -p ${PASSWORD}
+                    docker push ouusssamaaa/java-web-app
+              '''
         }
-        sh 'docker push ouusssamaaa/java-web-app'
+        
      }
      
       stage('Run Docker Image In Dev Server'){
         
-        def dockerRun = ' docker run  -d -p 8080:8080 --name java-web-app ouusssamaaa/java-web-app'
-         
-         sshagent(['DOCKER_SERVER']) {
-          sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.20.72 docker stop java-web-app || true'
-          sh 'ssh  ubuntu@172.31.20.72 docker rm java-web-app || true'
-          sh 'ssh  ubuntu@172.31.20.72 docker rmi -f  $(docker images -q) || true'
-          sh "ssh  ubuntu@172.31.20.72 ${dockerRun}"
+          sh' docker run  -d -p 8080:8080 --name java-web-app ouusssamaaa/java-web-app'
+       
        }
        
     }
