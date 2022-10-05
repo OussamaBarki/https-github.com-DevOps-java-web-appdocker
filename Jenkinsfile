@@ -28,7 +28,7 @@ node{
      
       stage('Run Docker Image In Dev Server'){
         
-          sh' docker run  -d -p 8080:8080 --name java-web-app ouusssamaaa/java-web-app'
+          sh' docker run  -d -p 8081:8080 --name java-web-app ouusssamaaa/java-web-app'
        
        }
      
